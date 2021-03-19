@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e60724c8df.js" crossorigin="anonymous"></script>
+    <title>Todo App</title>
+</head>
+
+<body>
+  <div class="bg-image"
+style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/Others/images/76.jpg');
+      height: 100vh">
+      <br><br><br>
+    <div  class = "container">
+       
+        <h3>Todo List</h3>
+        <hr>
+        
+        <form action="/add" method="post">
+          {% if todos== [] %}
+          <div class="mb-3">
+            <br><br>
+            <input type="text" class="form-control" name = "title" placeholder="Todo...">
+            <div class="form-text">İstenilen Todo Başlığını Giriniz...</div><br>
+            <button type="submit" class="btn btn-outline-danger">Ekle</button><hr>
+          </div>
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Oops!</h4>
+            <hr>
+            <p>Anlaşılan Henüz Todo Eklememişsin.</p>
+            <hr>
+           
+          </div>
+          {% else %}
+          <div class="mb-3">
+            <br><br>
+            <input type="text" class="form-control" name = "title" placeholder="Todo...">
+            <div class="form-text">İstenilen Todo Başlığını Giriniz...</div><br>
+            <button type="submit" class="btn btn-outline-danger">Ekle</button><hr>
+        </div>
+        <table class="table">
+            <thead class="thead">
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Todo Başlık</th>
+                <th scope="col">Todo Durum</th>
+                <th scope="col">Durum Güncelle</th>
+                <th scope="col">Todo Sil</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for todo in todos %}
+              <tr>
+                <th scope="row">{{todo.id}}</th>
+                <td>{{todo.title}}</td>
+                {% if todo.complete == False %}
+                  <td><span style="color: rgb(236, 37, 37);"><i class="far fa-times-circle fa-3x"></i></span></td>
+                {% else %}
+                  <td><span style="color: rgb(77, 236, 37);"><i class="fas fa-check-circle fa-3x"></i></span></td>
+                {% endif %}
+                <td><a href="/complete/{{todo.id}}" class="btn btn-outline-success">Todo'yu Tamamla</a></td>
+                <td><a href="/delete/{{todo.id}}" class="btn btn-outline-danger">Todo'yu Sil</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      
+          {% endif %}
+            
+        </form>
+
+    
+
+    </div>    
+  </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>
